@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <title>マジカルミライ用</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="main.css" />
+</head>
+<body>
+    <!-- オーバーレイ -->
+    <div id="overlay" class="">
+        <p><span id="overlay_text">⌛NOW LOADING⌛</span></p>
+        <button id="close_instraction" class="disabled" onclick="close_instraction()">☓</button>
+    </div>
+
+    <!-- トップバー -->
+    <div class="top_bar">
+        <h3>
+            <span id="Top_Text">DTM (Desk Top Mikumusic!)</span>
+            <span id="soft_closer">ー　□　<span id="close">✕</span></span>
+        </h3>
+    </div>
+
+    <div class="background"></div>
+
+    <!-- ヘッダ -->
+    <div id="header">
+        <div id="control" class="far">
+            <button id="play" class="disabled">▶</button>
+            <button id="stop" class="disabled">■</button>
+        </div>
+        <div id="seekbar">
+            <div id="meta">
+                <div id="song">song: <span>-</span></div>
+                <div id="artist">artist: <span>-</span></div>
+            </div>
+            <div id="painted_seekbar"></div>
+        </div>
+       <button id="instraction" onclick="open_instraction()">？</button>
+
+        <div id="score">完成度:0%</div>
+    </div>
+
+    <div id="media"></div>
+    <div id="pianorole">
+        <img src="piano.png" id="piano" />
+        <div id="ontei"></div>
+        <div id="bar">
+            <div id="progress-bar"></div>
+        </div>
+    </div>
+   
+
+    <!-- クイズ選択肢 -->
+    <div id="quiz">
+        <div id="judge"></div>
+        <div id="quiz_overlay" class="block"></div>
+        <h2 id="Text1">What is the pitch of the next phrase?</h2>
+        <button id="choose_1" onclick="f_choose1()"></button>
+        <button id="choose_2" onclick="f_choose2()"></button>
+        <button id="choose_3" onclick="f_choose3()"></button>
+    </div>
+
+    <!-- 歌詞表示 -->
+    <div id="Lyric">
+        <span id="Lyric_Text"></span>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+    <script src="https://unpkg.com/textalive-app-api@0.3.2/dist/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.26/Tone.min.js"></script>
+    <script src="./JS/main.js"></script>
+</body>
+</html>

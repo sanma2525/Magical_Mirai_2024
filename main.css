@@ -1,0 +1,612 @@
+@charset "utf-8";
+
+body{
+    margin-top:0px;
+    margin-left:0px;
+    margin-bottom:0px;
+    margin-right:0px;
+}
+
+.top_bar{
+    position:fixed;
+    width:110%;
+    height:30px;
+    margin-bottom:2px;
+    margin-left:-8px;
+    background: white;
+    color:black;
+    opacity:1;
+    z-index:5;
+}
+
+#Top_Text{
+    position: fixed;
+    margin-left: 20px;
+    top: 0px;
+}
+
+#soft_closer{
+    position: fixed;
+    display: inline;
+    right: 10px;
+    top: 0px;
+}
+
+.background{
+    user-select: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(45deg, rgba(246, 0, 255, 1), rgba(0, 226, 255, 1));
+    z-index:-1;
+}
+
+/*点滅アニメーションの定義*/
+
+@keyframes blink {
+    0% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes flash{
+    0%{
+        display:none
+    }
+    100%{
+        display:flex;
+    }
+}
+
+@keyframes fadeout{
+    0% {
+        opacity: 1;
+        display: flex;
+    }
+    99%{
+        display:flex;
+    }
+
+    100% {
+        opacity: 0;
+        display:none;
+    }
+}
+
+@keyframes width{
+    0%{
+        width:0%;
+    }
+    100%{
+        width:60%;
+    }
+}
+
+/* オーバーレイ / Overlay */
+#overlay {
+    font-size: 40px;
+    user-select: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    background: #0006;
+    color: #fffc;
+    z-index: 10;
+    opacity: 1;
+    transition: opacity 1s 0s ease-in-out;
+    transition: color 1s 0s ease-in-out;
+    transition: background 1s 0s ease-in-out;
+}
+
+    #overlay.instraction {
+        user-select: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        background: #0006;
+        color: #fffc;
+        z-index: 10;
+        opacity: 1;
+        transition: opacity 1s 0s ease-in-out;
+        transition: color 1s 0s ease-in-out;
+        transition: background 1s 0s ease-in-out;
+    }
+
+    #overlay.disabled {
+        font-size: initial;
+        animation: fadeout 1s ease-out 1 forwards;
+        opacity: 0;
+    }
+
+    #overlay.error {
+        color:#ffff;
+        background:#f004;
+    }
+
+    #overlay > p {
+        animation: blink 0.5s ease-in-out infinite alternate;
+        width: 100vw;
+        text-align: center;
+    }
+    #overlay.instraction > p {
+        font-size: initial;
+        animation: none;
+        width: 100vw;
+        text-align: center;
+    }
+
+        #overlay > p > span {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+
+#close_instraction{
+    position:fixed;
+    background-color:rgb(0, 0, 0, 0.50);
+    color:white;
+    font-size:30px;
+    right:10px;
+    top:10px;
+    z-index:11;
+}
+
+#close_instraction.disabled {
+    display:none;
+    position: fixed;
+    background-color: rgb(0, 0, 0, 0.50);
+    color: white;
+    font-size: 30px;
+    right: 10px;
+    top: 10px;
+    z-index: 11;
+}
+
+#close {
+    padding-right:10px;
+    position:relative;
+    display:inline-block;
+    background-color:white;
+    color:black;
+    transition:color 0.3s 0s ease-out , background-color 0.3s 0s ease-in;
+}
+#close:hover{
+    background-color:red;
+    color:white;
+}
+/* フッター / Footer */
+#header {
+    background-image: url(sozai.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat; /*画像が繰り返すのを防ぐ*/
+    object-fit:cover;
+    position: fixed;
+    padding-top: 50px;
+    /* フォントサイズ小さめ、太め / Small but bold typography */
+    font-size: 10.5px;
+    font-weight: bold;
+    /* 子要素を横に並べて配置 / Align child content to the right */
+    display: flex;
+    width: 100%;
+    height:70px;
+    z-index: 4;
+}
+
+
+#instraction{
+    position:absolute;
+    background-color:rgb(140, 206, 255);
+    border:1px solid black;
+    font-size:30px;
+    border-radius:100px;
+    right:15%;
+}
+
+/* 再生ボタン / Play button */
+#control {
+   padding-right: 20px;
+    position:relative;
+    display:flex;
+    top: 0px;
+    margin-left: 10px;
+    font-size: 30px;
+}
+
+    #control.disabled {
+        display: none;
+    }
+
+    #control a {
+        color: rgb(99 208 226);
+        text-decoration: none;
+    }
+
+        #control a.disabled {
+            opacity: 0.3;
+        }
+
+        #control a:hover {
+            color: rgb(255 148 56);
+        }
+
+button#play,button#stop {
+    background-color :lightskyblue;
+    width:40px;
+    height:40px;
+    font-size: 15px;
+}
+    button#play a:hover, button#stop a:hover {
+        cursor: pointer;
+        background-color: rgb(255 148 56);
+    }
+
+#play{
+    position:relative;
+    margin-right: 5px;
+}
+
+#seekbar {
+    position: relative;
+    margin-top: 20px;
+    width: 60%;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 10px;
+    background: rgba(255 255 255 / 40%);
+    z-index: 3;
+    display: inline-block;
+    animation: width 3s ease-in-out 1 forwards;
+}
+
+    #seekbar > #painted_seekbar {
+        position: relative;
+        width: 0;
+        height: 100%;
+        background: rgba(255 255 255 / 80%);
+        margin-left:1px;
+        margin-top:-3px;
+    }
+
+@keyframes fadein{
+    0%{
+        opacity:0;
+    }
+    80%{
+        opacity:0;
+    }
+    100%{
+        opacity:1;
+    }
+}
+
+
+/* アーティストと楽曲の情報 / Artist and song info */
+#meta {
+    position:relative;
+    display:flex;
+    margin-top: -20px;
+    font-size: 15px;
+    animation: fadein 3s linear 1 forwards;
+}
+#song {
+        padding-right: 10px;
+}
+
+#score{
+    position:absolute;
+    bottom:0px;
+    left:8%;
+    font-size:24px;
+}
+
+/* 音源 / Audio source */
+#media {
+    /* 下寄せ / Bottom-aligned */
+    bottom: 10px;
+}
+
+    #media.disabled > .textalive-media-wrapper {
+        width: 0;
+        height: 0;
+    }
+
+@keyframes showLyrics {
+    0% {
+        opacity: 0;
+        transform: translateX(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+
+
+/* 歌詞 / Lyrics */
+#Lyric {
+    position: fixed;
+    bottom: 20px; /* 位置調整 */
+    width: 80%; /* 幅を適切に調整 */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 1;
+    padding: 20px 0; /* テキストボックス内の余白 */
+    line-height: 2em;
+    font-size: 24px;
+    font-family: "Shippori Mincho B1", serif;
+    color: #e2f8fc;
+    text-shadow: 2px 2px 3px #e4215a;
+    user-select: none;
+    background: white; /* テキストボックスの背景色 */
+    border: 5px solid linear-gradient(45deg, rgba(246, 0, 255, 1), rgba(0, 226, 255, 1)); /* テキストボックスの外枠 */
+    border-radius: 20px; /* テキストボックスの角を丸くする */
+    z-index: 5;
+    display: inline-block;
+    box-shadow: 0 0 10px rgba(0, 226, 255, 1); /* 影 */
+}
+#Lyric_Text {
+    display: inline-block;
+    animation: showLyrics 1s ease-in-out forwards;
+}
+
+    /* 名詞などを強調表示する */
+    #Lyric_Text .noun {
+        color: #ddf9ff;
+        font-size: 40px;
+    }
+
+    /* フレーズ終わりで右にマージンを空けて読みやすくする */
+    #Lyric_Text .lastChar {
+        margin-right: 40px;
+    }
+
+    #Lyric_Text .firstCharInEnglishWord {
+        margin-left: 20px;
+    }
+
+    #Lyric_Text .lastCharInEnglishWord {
+        margin-right: 20px;
+    }
+
+#pianorole {
+    display: inline-block;
+    position: fixed;
+    left: 0px;
+    top: 120px;
+    z-index: 2;
+    height: 40%;
+    width:100%;
+}
+
+#piano{ 
+    position:relative;
+    left:0px;
+    width:auto;
+    height:100%;
+    object-fit: contain;
+}
+
+#ontei{
+    position:absolute;
+    left:auto;
+    height: 100%;
+    width:100%;
+    display:inline-block;
+}
+
+#ontei_img,
+#Answer,
+#Not_Answer{
+    position:relative;
+    left:auto;
+    width:100%;
+    height:100%;
+    display:inline-block;
+    max-width:100%;
+    object-fit: fill;
+}
+
+
+#bar {
+    position: absolute;
+    left: auto;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    display: inline-block;
+}
+
+#progress-bar {
+    position: relative;
+    left: auto;
+    height: 100%;
+    width: 2px;
+    background-color: rgba(0 0 0 / 40%);
+    display:inline-block;
+}
+
+#quiz {
+    position: fixed;
+    top: 55%;
+    left:5%;
+    height: 30%;
+    width: 90%;
+    z-index: 2;
+    background-color: rgba(255 255 255 / 40%);
+    border: 5px solid linear-gradient(45deg, rgba(246, 0, 255, 1), rgba(0, 226, 255, 1)); /* テキストボックスの外枠 */
+    border-radius: 20px; /* テキストボックスの角を丸くする */
+}
+
+#Text1 {
+    position: relative;
+    top: -5px;
+    left: 10px;
+    font-family: "Shippori Mincho B1", serif;
+    font-size: 15px;
+    text-decoration: underline;
+}
+
+#choose_1 {
+    background-color: gray;
+    position: absolute;
+    cursor: pointer;
+    left: 3%;
+    top: 30px;
+    height: 80%;
+    width: 25%;
+    object-fit: fill;
+    animation: moveY 0.3s ease-in 1 forwards;
+}
+#choose_2 {
+    background-color: gray;
+    position: absolute;
+    cursor: pointer;
+    top: 30px;
+    left: 37%;
+    height: 80%;
+    width: 25%;
+    object-fit: fill;
+    animation: moveY 0,3s ease-in 1 forwards;
+}
+#choose_3 {
+    background-color: gray;
+    position: absolute;
+    cursor: pointer;
+    top: 30px;
+    right: 3%;
+    height: 80%;
+    width: 25%;
+    object-fit: fill;
+    animation: moveY 0.3s ease-in 1 forwards;
+}
+
+#choose_1.disabled {
+    cursor:not-allowed;
+    position: absolute;
+    left: 3%;
+    top: 30px;
+    height: 80%;
+    width: 25%;
+    object-fit: fill;
+    color:rgba(0 0 0 / 40%);
+}
+
+#choose_2.disabled {
+    cursor: not-allowed;
+    position: absolute;
+    top: 30px;
+    left: 37%;
+    height: 80%;
+    width: 25%;
+    object-fit: fill;
+    color: rgba(0 0 0 / 40%);
+}
+
+#choose_3.disabled {
+    cursor: not-allowed;
+    position: absolute;
+    top: 30px;
+    right: 3%;
+    height: 80%;
+    width: 25%;
+    object-fit: fill;
+    color: rgba(0 0 0 / 40%);
+}
+
+#quiz_overlay {
+    opacity: 0;
+    display:none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px; /* テキストボックスの角を丸くする */
+    color: rgba(0 0 0 / 50%);
+    z-index: 7;
+}
+
+#quiz_overlay.block {
+    opacity:1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px; /* テキストボックスの角を丸くする */
+    background: rgba(0 0 0 / 50%);
+    color: white;
+    text-align:center;
+    animation: fadein 0.5s ease-out 1 forwards;
+    display:block;
+    z-index: 7;
+}
+
+#Correct,
+#Uncorrect,
+#rank_c,
+#rank_b,
+#rank_a,
+#rank_s,
+#rank_p
+{
+    position: absolute;
+    width: 100%;
+    -webkit-text-stroke: 3px #FFF;
+    text-stroke: 3px #FFF;
+    font-size: 50px;
+    text-align: center;
+    top: 25%;
+    z-index: 8;
+    animation: moveY 0.5s ease-in 1 forwards;
+}
+
+
+
+@keyframes moveY{
+    0%{
+    opacity:0;
+    transform:translateY(-10px);
+    }
+
+    100%{
+        opacity:1;
+        transform:translateY(0px);
+    }
+}
+
+
+#Correct{
+    color:red;
+}
+#Uncorrect{
+    color:blue;
+}
+#rank_c{
+    color:forestgreen;
+}
+#rank_b{
+    color:cornflowerblue;
+}
+#rank_a{
+    color:red;
+}
+#rank_s{
+    color:darkviolet;
+}
+#rank_p {
+    color: gold;
+}
